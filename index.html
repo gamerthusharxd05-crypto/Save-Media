@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Save Media — Free Video Downloader | YouTube, Instagram, TikTok</title>
+  <meta name="description" content="Download videos from YouTube, Instagram, TikTok, Twitter and 1000+ sites for free. MP4, MP3, no login required.">
+  <meta name="keywords" content="video downloader, youtube downloader, instagram download, tiktok downloader, save media">
+  <meta name="author" content="Save Media">
+  <meta name="robots" content="index, follow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0c12;
+      color: #eef2ff;
+      transition: background 0.3s ease, color 0.2s ease;
+    }
+
+    body.light {
+      background: #f8fafc;
+      color: #0f172a;
+    }
+
+    :root {
+      --bg-primary: #0a0c12;
+      --bg-card: #11141c;
+      --bg-elevated: #1a1f2e;
+      --border: #1e2433;
+      --text-primary: #eef2ff;
+      --text-secondary: #94a3b8;
+      --accent-start: #8b5cf6;
+      --accent-end: #a78bfa;
+      --accent-glow: rgba(139, 92, 246, 0.2);
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.5);
+      --ad-stripe: repeating-linear-gradient(45deg, #1a1f2e 0px, #1a1f2e 20px, #11141c 20px, #11141c 40px);
+    }
+
+    body.light {
+      --bg-primary: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-elevated: #f1f5f9;
+      --border: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --accent-start: #8b5cf6;
+      --accent-end: #a78bfa;
+      --accent-glow: rgba(139, 92, 246, 0.1);
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.08);
+      --ad-stripe: repeating-linear-gradient(45deg, #f1f5f9 0px, #f1f5f9 20px, #e2e8f0 20px, #e2e8f0 40px);
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .header {
+      backdrop-filter: blur(12px);
+      background: rgba(10, 12, 18, 0.8);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    body.light .header {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .logo-icon i {
+      font-size: 20px;
+      color: white;
+    }
+
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .logo-text span:first-child {
+      color: var(--text-primary);
+    }
+
+    .logo-text span:last-child {
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .theme-toggle {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 10px 18px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--text-primary);
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(0.96);
+      border-color: var(--accent-start);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(139, 92, 246, 0.12);
+      backdrop-filter: blur(4px);
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent-start);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      margin-bottom: 24px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 48px 0 32px;
+    }
+
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 20px auto 0;
+    }
+
+    .input-card {
+      background: var(--bg-card);
+      border-radius: 32px;
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      margin: 20px 0;
+      transition: transform 0.2s;
+    }
+
+    .url-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .url-group {
+        flex-direction: row;
+      }
+    }
+
+    .url-input {
+      flex: 1;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 60px;
+      padding: 16px 24px;
+      font-size: 1rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .url-input:focus {
+      border-color: var(--accent-start);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .paste-btn {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 60px;
+      padding: 0 28px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-primary);
+    }
+
+    .paste-btn:hover {
+      background: var(--accent-start);
+      color: white;
+      border-color: var(--accent-start);
+    }
+
+    .fetch-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      border: none;
+      border-radius: 60px;
+      padding: 16px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3);
+    }
+
+    .fetch-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+    }
+
+    .supported-text {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 16px;
+    }
+
+    .ad-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    @media (min-width: 768px) {
+      .ad-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .ad-box {
+      background: var(--ad-stripe);
+      border-radius: 24px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      margin: 48px 0;
+    }
+
+    @media (min-width: 768px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 28px 24px;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-start);
+      box-shadow: var(--shadow-md);
+    }
+
+    .feature-icon {
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      width: 60px;
+      height: 60px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 28px;
+      color: white;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .share-section {
+      background: var(--bg-card);
+      border-radius: 32px;
+      padding: 40px;
+      text-align: center;
+      margin: 48px 0;
+      border: 1px solid var(--border);
+    }
+
+    .share-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+    }
+
+    .share-btn.whatsapp { background: #25D366; color: white; }
+    .share-btn.telegram { background: #0088cc; color: white; }
+    .share-btn.twitter { background: #1DA1F2; color: white; }
+    .share-btn.copy { background: linear-gradient(135deg, var(--accent-start), var(--accent-end)); color: white; }
+
+    .share-btn:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.05);
+    }
+
+    .faq-grid {
+      display: grid;
+      gap: 16px;
+      margin: 40px 0;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 20px 24px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .faq-answer {
+      display: none;
+      margin-top: 16px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      padding-right: 20px;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .formats-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .format-card {
+      background: var(--bg-primary);
+      border-radius: 20px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .format-card:hover {
+      border-color: var(--accent-start);
+    }
+
+    .download-single-btn {
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      border: none;
+      border-radius: 40px;
+      padding: 8px 20px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .error-msg {
+      background: rgba(239, 68, 68, 0.1);
+      border-left: 4px solid #ef4444;
+      padding: 14px;
+      border-radius: 16px;
+      margin-top: 20px;
+      color: #ef4444;
+    }
+
+    .success-msg {
+      background: rgba(34, 197, 94, 0.1);
+      border-left: 4px solid #22c55e;
+      padding: 14px;
+      border-radius: 16px;
+      margin-top: 20px;
+      color: #22c55e;
+    }
+
+    .loading-spinner {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      border: 3px solid var(--border);
+      border-top: 3px solid var(--accent-start);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0 32px;
+      margin-top: 64px;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 24px;
+    }
+
+    .social-links a {
+      color: var(--text-secondary);
+      font-size: 1.6rem;
+      transition: all 0.2s;
+    }
+
+    .social-links a:hover {
+      color: var(--accent-start);
+      transform: translateY(-3px);
+    }
+
+    .footer-copyright {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 2rem; }
+      .input-card { padding: 20px; }
+      .share-section { padding: 24px; }
+      .share-btn { padding: 10px 18px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon"><i class="fas fa-download"></i></div>
+        <div class="logo-text"><span>Save</span><span>Media</span></div>
+      </div>
+      <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i> Dark</button>
+    </div>
+  </div>
+</div>
+
+<main class="container">
+  <div class="hero">
+    <div class="badge"><i class="fas fa-check-circle"></i> Free — No Login Required</div>
+    <h1>Download <span class="gradient-text">any video</span> in seconds</h1>
+    <p>Paste a link from YouTube, Twitter, TikTok, Instagram, or 1000+ other sites. Get MP4 or MP3 instantly.</p>
+  </div>
+
+  <div class="input-card">
+    <div class="url-group">
+      <input type="text" id="videoUrl" class="url-input" placeholder="Paste a video URL here...">
+      <button id="pasteBtn" class="paste-btn"><i class="fas fa-clipboard"></i> Paste</button>
+    </div>
+    <button id="fetchBtn" class="fetch-btn"><i class="fas fa-cloud-download-alt"></i> Fetch</button>
+    <div class="supported-text">Supports YouTube, Twitter/X, TikTok, Instagram, Vimeo, Reddit and many more</div>
+    <div id="loadingArea" style="display: none;" class="loading-spinner"><div class="spinner"></div></div>
+    <div id="resultArea"></div>
+    <div id="errorArea"></div>
+  </div>
+
+  <div class="ad-row">
+    <div class="ad-box">ADVERTISEMENT</div>
+    <div class="ad-box">ADVERTISEMENT</div>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon"><i class="fas fa-bolt"></i></div><h3>Lightning Fast</h3><p>Downloads are processed instantly on our servers. No waiting, no queues.</p></div>
+    <div class="feature-card"><div class="feature-icon"><i class="fas fa-infinity"></i></div><h3>Free Forever</h3><p>No sign-up, no subscription, no limits. Completely free to use anytime.</p></div>
+    <div class="feature-card"><div class="feature-icon"><i class="fas fa-globe"></i></div><h3>1000+ Sites</h3><p>YouTube, Twitter, TikTok, Instagram, Vimeo, Reddit and thousands more.</p></div>
+  </div>
+
+  <div class="share-section">
+    <h2 style="font-size: 1.8rem;">Share Save Media with friends</h2>
+    <p style="margin-top: 12px; color: var(--text-secondary);">Know someone who needs to download a video? Share Save Media — it's free and takes 5 seconds.</p>
+    <div class="share-buttons">
+      <button class="share-btn whatsapp" id="shareWhatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-btn telegram" id="shareTelegram"><i class="fab fa-telegram"></i> Telegram</button>
+      <button class="share-btn twitter" id="shareTwitter"><i class="fab fa-twitter"></i> Twitter/X</button>
+      <button class="share-btn copy" id="copyLinkBtn"><i class="fas fa-link"></i> Copy Link</button>
+    </div>
+  </div>
+
+  <h2 style="text-align: center; font-size: 2rem; margin-top: 24px;">Frequently Asked Questions</h2>
+  <p style="text-align: center; color: var(--text-secondary); margin-bottom: 32px;">Everything you need to know about downloading videos online.</p>
+  <div class="faq-grid" id="faqContainer"></div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="social-links">
+      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    </div>
+    <div class="footer-copyright">© 2026 Save Media — Download any video in seconds. No limits.</div>
+  </div>
+</footer>
+
+<script>
+  // Theme handling
+  const themeBtn = document.getElementById('themeToggle');
+  const body = document.body;
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') body.classList.add('light');
+  themeBtn.addEventListener('click', () => {
+    body.classList.toggle('light');
+    localStorage.setItem('theme', body.classList.contains('light') ? 'light' : 'dark');
+  });
+
+  // DOM elements
+  const urlInput = document.getElementById('videoUrl');
+  const pasteButton = document.getElementById('pasteBtn');
+  const fetchButton = document.getElementById('fetchBtn');
+  const loadingArea = document.getElementById('loadingArea');
+  const resultArea = document.getElementById('resultArea');
+  const errorArea = document.getElementById('errorArea');
+
+  pasteButton.addEventListener('click', async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      urlInput.value = text;
+      const placeholder = urlInput.placeholder;
+      urlInput.placeholder = "✓ Pasted!";
+      setTimeout(() => urlInput.placeholder = placeholder, 1200);
+    } catch (err) {
+      showError("Unable to read clipboard. Paste manually.");
+    }
+  });
+
+  function showError(msg) {
+    errorArea.innerHTML = `<div class="error-msg"><i class="fas fa-exclamation-triangle"></i> ${msg}</div>`;
+    setTimeout(() => { if (errorArea.innerHTML.includes(msg)) errorArea.innerHTML = ''; }, 5000);
+  }
+
+  function showSuccess(msg) {
+    errorArea.innerHTML = `<div class="success-msg"><i class="fas fa-check-circle"></i> ${msg}</div>`;
+    setTimeout(() => { if (errorArea.innerHTML.includes(msg)) errorArea.innerHTML = ''; }, 3000);
+  }
+
+  function clearMessages() {
+    errorArea.innerHTML = '';
+    resultArea.innerHTML = '';
+  }
+
+  function detectPlatform(url) {
+    const u = url.toLowerCase();
+    if (u.includes('youtube.com') || u.includes('youtu.be')) return 'YouTube';
+    if (u.includes('instagram.com')) return 'Instagram';
+    if (u.includes('tiktok.com')) return 'TikTok';
+    if (u.includes('twitter.com') || u.includes('x.com')) return 'Twitter';
+    if (u.includes('facebook.com')) return 'Facebook';
+    if (u.includes('vimeo.com')) return 'Vimeo';
+    if (u.includes('reddit.com')) return 'Reddit';
+    return 'Video';
+  }
+
+  async function fetchVideoInfo(url) {
+    const response = await fetch('/api/info', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url })
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Failed to fetch video info');
+    }
+    
+    return await response.json();
+  }
+
+  async function downloadFile(url, quality, type) {
+    try {
+      const response = await fetch('/api/download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url, quality, type })
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Download failed');
+      }
+      
+      const blob = await response.blob();
+      const downloadUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = `SaveMedia_${quality}.${type}`;
+      link.click();
+      URL.revokeObjectURL(downloadUrl);
+      
+      showSuccess(`✅ Download started! ${quality} ${type.toUpperCase()}`);
+    } catch (error) {
+      showError(error.message);
+    }
+  }
+
+  function renderFormats(videoData, originalUrl) {
+    const platform = detectPlatform(originalUrl);
+    const formatsHtml = `
+      <div style="margin-top: 20px;">
+        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap;">
+          ${videoData.thumbnail ? `<img src="${videoData.thumbnail}" style="width: 120px; border-radius: 12px;" alt="thumbnail">` : ''}
+          <div>
+            <h3 style="margin-bottom: 8px;">🎬 ${escapeHtml(videoData.title)}</h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem;">
+              <i class="fab fa-${platform === 'Twitter' ? 'twitter' : platform.toLowerCase()}"></i> ${platform} • 
+              ${videoData.author ? `👤 ${escapeHtml(videoData.author)}` : ''}
+              ${videoData.duration ? ` • ⏱️ ${Math.floor(videoData.duration / 60)}:${(videoData.duration % 60).toString().padStart(2, '0')}` : ''}
+            </p>
+          </div>
+        </div>
+        <h3 style="margin-bottom: 12px;">✨ Available formats</h3>
+        <div class="formats-grid">
+          ${videoData.formats.map(f => `
+            <div class="format-card">
+              <div class="format-info">
+                <h4><i class="fas fa-${f.type === 'mp4' ? 'video' : 'music'}"></i> ${f.type.toUpperCase()} • ${f.quality}</h4>
+                <p>${f.size} • ${f.label}</p>
+              </div>
+              <button class="download-single-btn" data-quality="${f.quality}" data-type="${f.type}">
+                <i class="fas fa-download"></i> Download
+              </button>
+            </div>
+          `).join('')}
+        </div>
+        <p style="font-size: 0.75rem; text-align: center; margin-top: 20px; color: var(--text-secondary);">
+          <i class="fas fa-shield-alt"></i> Secure & instant — click to download
+        </p>
+      </div>
+    `;
+    
+    resultArea.innerHTML = formatsHtml;
+    
+    document.querySelectorAll('.download-single-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const quality = btn.getAttribute('data-quality');
+        const type = btn.getAttribute('data-type');
+        await downloadFile(originalUrl, quality, type);
+      });
+    });
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  async function handleFetch() {
+    const url = urlInput.value.trim();
+    clearMessages();
+    
+    if (!url) {
+      showError('Please paste a video URL');
+      return;
+    }
+    
+    const supportedDomains = ['youtube.com', 'youtu.be', 'instagram.com', 'tiktok.com', 'twitter.com', 'x.com', 'facebook.com', 'vimeo.com', 'reddit.com'];
+    const isSupported = supportedDomains.some(domain => url.toLowerCase().includes(domain));
+    
+    if (!isSupported) {
+      showError('Unsupported platform. Try YouTube, Instagram, TikTok, Twitter, etc.');
+      return;
+    }
+    
+    loadingArea.style.display = 'flex';
+    
+    try {
+      const videoData = await fetchVideoInfo(url);
+      renderFormats(videoData, url);
+    } catch (err) {
+      showError(err.message || 'Failed to fetch video information');
+    } finally {
+      loadingArea.style.display = 'none';
+    }
+  }
+
+  fetchButton.addEventListener('click', handleFetch);
+  urlInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleFetch();
+  });
+
+  // Share functionality
+  const shareUrl = encodeURIComponent('https://savemedia.com');
+  const shareText = encodeURIComponent('Save Media — Download any video in seconds, free!');
+  document.getElementById('shareWhatsapp').addEventListener('click', () => window.open(`https://wa.me/?text=${shareText}%20${shareUrl}`, '_blank'));
+  document.getElementById('shareTelegram').addEventListener('click', () => window.open(`https://t.me/share/url?url=${shareUrl}&text=${shareText}`, '_blank'));
+  document.getElementById('shareTwitter').addEventListener('click', () => window.open(`https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}`, '_blank'));
+  document.getElementById('copyLinkBtn').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText('https://savemedia.com');
+      showSuccess('Link copied to clipboard!');
+    } catch(e) { showError('Could not copy link'); }
+  });
+
+  // FAQ accordion
+  const faqList = [
+    { q: "How do I download a YouTube video for free?", a: "Simply copy the YouTube URL, paste it into the field, click Fetch, then choose MP4 or MP3 quality." },
+    { q: "Can I download TikTok videos?", a: "Yes! Paste the TikTok link and we'll fetch the video without watermark." },
+    { q: "How do I download Instagram Reels?", a: "Copy the Reels link, paste it here, and download as MP4 instantly." },
+    { q: "Can I convert YouTube videos to MP3?", a: "Absolutely. After fetching, select the MP3 option to extract high-quality audio." },
+    { q: "Is Save Media really 100% free?", a: "Yes! No hidden fees, no subscription, completely free forever." },
+    { q: "What other video sites are supported?", a: "Vimeo, Facebook, Reddit, Twitter, Twitch, Dailymotion, and 1000+ more platforms." }
+  ];
+  
+  const faqContainer = document.getElementById('faqContainer');
+  faqList.forEach(item => {
+    const faqDiv = document.createElement('div');
+    faqDiv.className = 'faq-item';
+    faqDiv.innerHTML = `<div class="faq-question"><span>${item.q}</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer">${item.a}</div>`;
+    faqDiv.addEventListener('click', () => {
+      faqDiv.classList.toggle('open');
+      const icon = faqDiv.querySelector('.faq-question i');
+      if (faqDiv.classList.contains('open')) icon.className = 'fas fa-chevron-up';
+      else icon.className = 'fas fa-chevron-down';
+    });
+    faqContainer.appendChild(faqDiv);
+  });
+</script>
+</body>
+</html>
